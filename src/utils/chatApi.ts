@@ -1,81 +1,41 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+// Use relative path for production, localhost for development
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 export interface Message {
   id: string;
-  conversationId: string;
   role: 'user' | 'assistant';
   content: string;
-  createdAt: string;
+  timestamp: string;
 }
 
 export interface ChatResponse {
   success: boolean;
-  userMessage: Message;
-  assistantMessage: Message;
-}
-
-export interface HistoryResponse {
-  messages: Message[];
-}
-
-export interface ConversationResponse {
-  conversation: {
-    id: string;
-    createdAt: string;
-  };
+  response: string;
+  timestamp: string;
 }
 
 /**
  * Send a message to the API and get an AI response
+ * Stateless - history is managed in frontend only
  */
-export async function sendMessage(conversationId: string, message: string): Promise<ChatResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/chat`, {
+export async function sendMessage(message: string, history: Message[] = []): Promise<ChatResponse> {
+  const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      conversationId,
-      message
+      message,
+      history: history.map(msg => ({
+        role: msg.role,
+        content: msg.content
+      }))
     })
   });
 
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.error || 'Failed to send message');
-  }
-
-  return response.json();
-}
-
-/**
- * Get conversation history for a specific conversation
- */
-export async function getConversationHistory(conversationId: string): Promise<HistoryResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/history?conversationId=${conversationId}`);
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || 'Failed to get conversation history');
-  }
-
-  return response.json();
-}
-
-/**
- * Create a new conversation
- */
-export async function createConversation(): Promise<ConversationResponse> {
-  const response = await fetch(`${API_BASE_URL}/api/conversations`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || 'Failed to create conversation');
   }
 
   return response.json();

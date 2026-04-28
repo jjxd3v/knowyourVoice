@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XIcon, SendIcon, UserIcon, SparklesIcon, Trash2Icon, AlertCircleIcon } from 'lucide-react';
-import { sendMessage, createConversation, checkApiHealth } from '../utils/chatApi';
+import { sendMessage, checkApiHealth, Message as ApiMessage } from '../utils/chatApi';
 interface Message {
   id: string;
   text: string;
@@ -9,7 +9,6 @@ interface Message {
   timestamp: string;
 }
 
-const CONVERSATION_ID_KEY = 'know-your-voice-conversation-id';
 const BOT_AVATAR = "/3ba5fab1d81e66ac60f2c12a290f9641.jpg";
 
 const welcomeMessage: Message = {
@@ -17,26 +16,6 @@ const welcomeMessage: Message = {
   text: "Welcome to KYRO! 👋 I'm your AI guide for digital education. Here you can learn about effective communication, online safety, and responsible expression on social media platforms. What would you like to learn about today?",
   sender: 'bot',
   timestamp: new Date().toISOString()
-};
-
-const getOrCreateConversationId = async (): Promise<string> => {
-  try {
-    // Check if we have a stored conversation ID
-    const stored = localStorage.getItem(CONVERSATION_ID_KEY);
-    if (stored) {
-      return stored;
-    }
-
-    // Create a new conversation
-    const response = await createConversation();
-    const conversationId = response.conversation.id;
-    localStorage.setItem(CONVERSATION_ID_KEY, conversationId);
-    return conversationId;
-  } catch (error) {
-    console.error('Failed to get/create conversation:', error);
-    // Fallback: generate a temporary ID
-    return `temp-${Date.now()}`;
-  }
 };
 
 const loadMessagesFromStorage = (): Message[] => {
@@ -57,26 +36,21 @@ export const ChatBot: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isApiHealthy, setIsApiHealthy] = useState(false);
-  const [conversationId, setConversationId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Initialize conversation ID and check API health
+  // Check API health on mount
   useEffect(() => {
-    const initialize = async () => {
-      const id = await getOrCreateConversationId();
-      setConversationId(id);
-
-      // Check API health
+    const checkHealth = async () => {
       const healthy = await checkApiHealth();
       setIsApiHealthy(healthy);
 
       if (!healthy) {
-        setApiError('Backend API is not available. Please ensure the server is running.');
-        console.warn('KYRO API is not responding. Running in offline mode.');
+        setApiError('Backend API is not available. Please try again later.');
+        console.warn('KYRO API is not responding.');
       }
     };
 
-    initialize();
+    checkHealth();
   }, []);
 
   // Scroll to bottom when messages change
@@ -114,7 +88,7 @@ export const ChatBot: React.FC = () => {
   };
 
   const handleSend = async (text: string) => {
-    if (!text.trim() || isTyping || !conversationId) return;
+    if (!text.trim() || isTyping) return;
 
     // Check if API is available
     if (!isApiHealthy) {
@@ -136,15 +110,25 @@ export const ChatBot: React.FC = () => {
     setApiError(null);
 
     try {
-      // Send message to backend
-      const response = await sendMessage(conversationId, text);
+      // Build history from current messages (exclude welcome message)
+      const history: ApiMessage[] = messages
+        .filter(msg => msg.id !== 'welcome')
+        .map(msg => ({
+          id: msg.id,
+          role: msg.sender === 'user' ? 'user' : 'assistant',
+          content: msg.text,
+          timestamp: msg.timestamp
+        }));
+
+      // Send message to backend with history
+      const response = await sendMessage(text, history);
 
       // Add assistant response to UI
       const newBotMsg: Message = {
-        id: response.assistantMessage.id,
-        text: response.assistantMessage.content,
+        id: Date.now().toString(),
+        text: response.response,
         sender: 'bot',
-        timestamp: response.assistantMessage.createdAt
+        timestamp: response.timestamp
       };
 
       setMessages((prev) => [...prev, newBotMsg]);
