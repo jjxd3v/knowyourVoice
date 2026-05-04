@@ -1,11 +1,20 @@
 // Use relative path for production, localhost for development
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || '/api';
 
 export interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: string;
+  hasAttachment?: boolean;
+  attachmentName?: string;
+  attachmentType?: string;
+}
+
+export interface UploadedFile {
+  type: string;
+  data: string; // base64 encoded
+  name: string;
 }
 
 export interface ChatResponse {
@@ -14,11 +23,55 @@ export interface ChatResponse {
   timestamp: string;
 }
 
+// Maximum file size (5MB)
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+// Supported file types
+const SUPPORTED_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'application/pdf',
+  'text/plain',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+];
+
+/**
+ * Read a file and convert to base64
+ */
+export function readFileAsBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    if (file.size > MAX_FILE_SIZE) {
+      reject(new Error(`File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`));
+      return;
+    }
+
+    if (!SUPPORTED_TYPES.includes(file.type)) {
+      reject(new Error(`Unsupported file type: ${file.type}. Supported: Images (JPG, PNG, WEBP), Documents (PDF, DOCX), Text (TXT)`));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      // Remove data URL prefix (e.g., "data:image/jpeg;base64,")
+      const base64 = result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = () => reject(new Error('Failed to read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
 /**
  * Send a message to the API and get an AI response
  * Stateless - history is managed in frontend only
  */
-export async function sendMessage(message: string, history: Message[] = []): Promise<ChatResponse> {
+export async function sendMessage(
+  message: string,
+  history: Message[] = [],
+  file?: UploadedFile
+): Promise<ChatResponse> {
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: {
@@ -29,13 +82,14 @@ export async function sendMessage(message: string, history: Message[] = []): Pro
       history: history.map(msg => ({
         role: msg.role,
         content: msg.content
-      }))
+      })),
+      file
     })
   });
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.error || 'Failed to send message');
+    throw new Error(error.error || error.details || 'Failed to send message');
   }
 
   return response.json();
