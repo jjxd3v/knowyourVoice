@@ -440,7 +440,7 @@ export const ChatBot: React.FC = () => {
                   type="file"
                   ref={fileInputRef}
                   onChange={handleFileSelect}
-                  accept="image/jpeg,image/png,image/webp,application/pdf,text/plain,.docx"
+                  accept="image/jpeg,image/png,image/webp"
                   className="hidden"
                   disabled={isTyping || !isApiHealthy}
                 />
@@ -449,7 +449,7 @@ export const ChatBot: React.FC = () => {
                   onClick={() => fileInputRef.current?.click()}
                   disabled={isTyping || !isApiHealthy || pendingFile !== null}
                   className="w-11 h-11 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-colors flex-shrink-0"
-                  title="Upload file (JPG, PNG, PDF, DOCX, TXT)">
+                  title="Upload image (JPG, PNG, WEBP, max 2MB)">
                   <PaperclipIcon size={18} />
                 </button>
                 <input
@@ -468,7 +468,7 @@ export const ChatBot: React.FC = () => {
                 </button>
               </form>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                Images: max 2MB | Documents: max 2MB
+                Images: JPG, PNG, WEBP (max 2MB)
               </p>
             </div>
           </motion.div>

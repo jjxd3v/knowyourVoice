@@ -52,14 +52,11 @@ Key behaviors:
 - Keep responses educational, supportive, and focused on building skills for social media use
 - Always format responses with proper markdown for readability`;
 
-// Supported file types for upload
+// Supported file types for upload - only images work with Groq vision model
 const SUPPORTED_FILE_TYPES = {
   'image/jpeg': 'image',
   'image/png': 'image',
-  'image/webp': 'image',
-  'application/pdf': 'document',
-  'text/plain': 'text',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'document'
+  'image/webp': 'image'
 };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -95,42 +92,31 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }))
     ];
 
-    // Handle file upload (images and documents)
+    // Handle file upload (images only - Groq vision model)
     if (file) {
-      const { type, data, name } = file;
+      const { type, data } = file;
       const fileType = SUPPORTED_FILE_TYPES[type as keyof typeof SUPPORTED_FILE_TYPES];
 
       if (!fileType) {
-        return res.status(400).json({ error: `Unsupported file type: ${type}` });
+        return res.status(400).json({ error: `Unsupported file type: ${type}. Only images (JPG, PNG, WEBP) are supported.` });
       }
 
-      if (fileType === 'image') {
-        // For images, use vision capabilities with base64 encoding
-        conversationMessages.push({
-          role: 'user',
-          content: [
-            {
-              type: 'text',
-              text: message?.trim() || 'Please analyze this image and describe what you see.'
-            },
-            {
-              type: 'image_url',
-              image_url: {
-                url: `data:${type};base64,${data}`
-              }
+      // For images, use vision capabilities with base64 encoding
+      conversationMessages.push({
+        role: 'user',
+        content: [
+          {
+            type: 'text',
+            text: message?.trim() || 'Please analyze this image and describe what you see.'
+          },
+          {
+            type: 'image_url',
+            image_url: {
+              url: `data:${type};base64,${data}`
             }
-          ]
-        });
-      } else {
-        // For documents and text files, include content in the message
-        const contextMessage = message?.trim()
-          ? `${message.trim()}\n\nFile content:\n${data}`
-          : `Please analyze this file:\n\nFile name: ${name}\n\nContent:\n${data}`;
-        conversationMessages.push({
-          role: 'user',
-          content: contextMessage
-        });
-      }
+          }
+        ]
+      });
     } else {
       // Regular text message
       conversationMessages.push({

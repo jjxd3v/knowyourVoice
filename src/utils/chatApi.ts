@@ -31,14 +31,11 @@ export interface ChatResponse {
 // Maximum file size (2MB for images, Vercel has 4.5MB payload limit)
 const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
-// Supported file types
+// Supported file types - only images work with Groq vision model
 const SUPPORTED_TYPES = [
   'image/jpeg',
   'image/png',
-  'image/webp',
-  'application/pdf',
-  'text/plain',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  'image/webp'
 ];
 
 /**
@@ -54,7 +51,7 @@ export function readFileAsBase64(file: File): Promise<string> {
     }
 
     if (!SUPPORTED_TYPES.includes(file.type)) {
-      reject(new Error(`Unsupported file type: ${file.type}. Supported: Images (JPG, PNG, WEBP), Documents (PDF, DOCX), Text (TXT)`));
+      reject(new Error(`Unsupported file type: ${file.type}. Only images are supported: JPG, PNG, WEBP (max 2MB)`));
       return;
     }
 
