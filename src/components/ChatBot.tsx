@@ -462,7 +462,7 @@ export const ChatBot: React.FC = () => {
                 </button>
               </form>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                Supports: JPG, PNG, WEBP, PDF, DOCX, TXT (max 5MB)
+                Images: max 2MB | Documents: max 2MB
               </p>
             </div>
           </motion.div>

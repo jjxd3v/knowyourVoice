@@ -23,8 +23,8 @@ export interface ChatResponse {
   timestamp: string;
 }
 
-// Maximum file size (5MB)
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+// Maximum file size (2MB for images, Vercel has 4.5MB payload limit)
+const MAX_FILE_SIZE = 2 * 1024 * 1024;
 
 // Supported file types
 const SUPPORTED_TYPES = [
@@ -41,8 +41,10 @@ const SUPPORTED_TYPES = [
  */
 export function readFileAsBase64(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
-    if (file.size > MAX_FILE_SIZE) {
-      reject(new Error(`File too large. Maximum size is ${MAX_FILE_SIZE / 1024 / 1024}MB`));
+    // For images, check original size (base64 adds ~33% overhead)
+    const effectiveLimit = file.type.startsWith('image/') ? MAX_FILE_SIZE : 2 * 1024 * 1024;
+    if (file.size > effectiveLimit) {
+      reject(new Error(`File too large. Maximum size is ${effectiveLimit / 1024 / 1024}MB for ${file.type.startsWith('image/') ? 'images' : 'files'}. Please use a smaller file.`));
       return;
     }
 
