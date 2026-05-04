@@ -60,7 +60,13 @@ export const ChatBot: React.FC = () => {
       setIsApiHealthy(healthy);
 
       if (!healthy) {
-        setApiError('Backend API is not available. Please try again later.');
+        // Check if running locally
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        if (isLocal) {
+          setApiError('⚠️ Running locally. Chatbot API only works in production or with VITE_API_URL set in .env');
+        } else {
+          setApiError('Backend API is not available. Please try again later.');
+        }
         console.warn('KYRO API is not responding.');
       }
     };

@@ -1,5 +1,10 @@
 // Use relative path for production, localhost for development
+// For local dev, you can set VITE_API_URL in .env to point to your deployed Vercel API
+// Example: VITE_API_URL=https://your-site.vercel.app/api
 const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || '/api';
+
+// Check if we're in local development
+const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 
 export interface Message {
   id: string;
@@ -90,8 +95,15 @@ export async function sendMessage(
   });
 
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.error || error.details || 'Failed to send message');
+    let errorMessage = 'Failed to send message';
+    try {
+      const error = await response.json();
+      errorMessage = error.error || error.details || `Server error: ${response.status}`;
+    } catch {
+      // If can't parse JSON, use status text
+      errorMessage = `Server error: ${response.status} - ${response.statusText}`;
+    }
+    throw new Error(errorMessage);
   }
 
   return response.json();
@@ -106,7 +118,10 @@ export async function checkApiHealth(): Promise<boolean> {
       method: 'GET'
     });
     return response.ok;
-  } catch {
+  } catch (error) {
+    if (isLocalDev && API_BASE_URL === '/api') {
+      console.warn('⚠️ Local development: API not available. Set VITE_API_URL in .env to use deployed API.');
+    }
     return false;
   }
 }
