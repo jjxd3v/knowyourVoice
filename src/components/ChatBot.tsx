@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { XIcon, SendIcon, UserIcon, SparklesIcon, Trash2Icon, AlertCircleIcon, PaperclipIcon, X, FileText, Image as ImageIcon } from 'lucide-react';
+import { XIcon, SendIcon, UserIcon, SparklesIcon, Trash2Icon, AlertCircleIcon } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { sendMessage, checkApiHealth, Message as ApiMessage, readFileAsBase64, UploadedFile } from '../utils/chatApi';
+import { sendMessage, checkApiHealth, Message as ApiMessage } from '../utils/chatApi';
 
 interface Message {
   id: string;
@@ -13,12 +13,6 @@ interface Message {
   hasAttachment?: boolean;
   attachmentName?: string;
   attachmentType?: string;
-}
-
-interface PendingFile {
-  file: File;
-  preview?: string;
-  base64: string;
 }
 
 const BOT_AVATAR = "/3ba5fab1d81e66ac60f2c12a290f9641.jpg";
@@ -48,10 +42,7 @@ export const ChatBot: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [isApiHealthy, setIsApiHealthy] = useState(false);
-  const [pendingFile, setPendingFile] = useState<PendingFile | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Check API health on mount
   useEffect(() => {
@@ -106,51 +97,10 @@ export const ChatBot: React.FC = () => {
     setMessages([welcomeMessage]);
     localStorage.setItem('know-your-voice-chat-messages', JSON.stringify([welcomeMessage]));
     setApiError(null);
-    setPendingFile(null);
-  };
-
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    setIsUploading(true);
-    setApiError(null);
-
-    try {
-      const base64 = await readFileAsBase64(file);
-      const preview = file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined;
-
-      setPendingFile({
-        file,
-        preview,
-        base64
-      });
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Failed to upload file';
-      setApiError(errorMessage);
-    } finally {
-      setIsUploading(false);
-      // Reset file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    }
-  };
-
-  const handleRemoveFile = () => {
-    if (pendingFile?.preview) {
-      URL.revokeObjectURL(pendingFile.preview);
-    }
-    setPendingFile(null);
-  };
-
-  const getFileIcon = (type: string) => {
-    if (type.startsWith('image/')) return <ImageIcon size={16} className="text-blue-500" />;
-    return <FileText size={16} className="text-orange-500" />;
   };
 
   const handleSend = async (text: string) => {
-    if ((!text.trim() && !pendingFile) || isTyping) return;
+    if (!text.trim() || isTyping) return;
 
     // Check if API is available
     if (!isApiHealthy) {
@@ -158,45 +108,18 @@ export const ChatBot: React.FC = () => {
       return;
     }
 
-    // Prepare file upload data if exists
-    let uploadedFile: UploadedFile | undefined;
-    let displayText = text.trim();
-
-    if (pendingFile) {
-      uploadedFile = {
-        type: pendingFile.file.type,
-        data: pendingFile.base64,
-        name: pendingFile.file.name
-      };
-      // Add file indicator to message text
-      if (!displayText) {
-        displayText = `📎 ${pendingFile.file.name}`;
-      } else {
-        displayText = `${displayText}\n📎 ${pendingFile.file.name}`;
-      }
-    }
-
     // Add user message to UI
     const newUserMsg: Message = {
       id: Date.now().toString(),
-      text: displayText,
+      text: text.trim(),
       sender: 'user',
-      timestamp: new Date().toISOString(),
-      hasAttachment: !!pendingFile,
-      attachmentName: pendingFile?.file.name,
-      attachmentType: pendingFile?.file.type
+      timestamp: new Date().toISOString()
     };
 
     setMessages((prev) => [...prev, newUserMsg]);
     setInputValue('');
     setIsTyping(true);
     setApiError(null);
-
-    // Clear pending file
-    if (pendingFile?.preview) {
-      URL.revokeObjectURL(pendingFile.preview);
-    }
-    setPendingFile(null);
 
     try {
       // Build history from current messages (exclude welcome message)
@@ -209,8 +132,8 @@ export const ChatBot: React.FC = () => {
           timestamp: msg.timestamp
         }));
 
-      // Send message to backend with history and optional file
-      const response = await sendMessage(text.trim(), history, uploadedFile);
+      // Send message to backend with history
+      const response = await sendMessage(text.trim(), history);
 
       // Add assistant response to UI
       const newBotMsg: Message = {
@@ -334,19 +257,7 @@ export const ChatBot: React.FC = () => {
                           {msg.text}
                         </ReactMarkdown>
                       ) : (
-                        <div className="whitespace-pre-wrap">
-                          {msg.text.split('\n').map((line, i) => (
-                            <div key={i} className="flex items-center gap-1">
-                              {line.startsWith('📎') && msg.hasAttachment && (
-                                <>
-                                  {getFileIcon(msg.attachmentType || '')}
-                                  <span className="opacity-80 text-xs">{line.replace('📎 ', '')}</span>
-                                </>
-                              )}
-                              {!line.startsWith('📎') && line}
-                            </div>
-                          ))}
-                        </div>
+                        <div className="whitespace-pre-wrap">{msg.text}</div>
                       )}
                     </div>
                   </div>
@@ -382,53 +293,13 @@ export const ChatBot: React.FC = () => {
                   <button
                     key={idx}
                     onClick={() => handleSend(suggestion)}
-                    disabled={isTyping || !isApiHealthy || pendingFile !== null}
+                    disabled={isTyping || !isApiHealthy}
                     className="flex items-center text-xs font-medium bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 text-gray-700 dark:text-gray-300 px-2.5 py-1.5 rounded-full transition-colors">
                     <SparklesIcon size={10} className="mr-1 text-primary" />
                     {suggestion}
                   </button>
                 ))}
               </div>
-
-              {/* File Preview */}
-              {pendingFile && (
-                <div className="mb-3 p-2 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      {pendingFile.preview ? (
-                        <img
-                          src={pendingFile.preview}
-                          alt="Preview"
-                          className="w-10 h-10 object-cover rounded"
-                        />
-                      ) : (
-                        getFileIcon(pendingFile.file.type)
-                      )}
-                      <span className="text-xs text-gray-700 dark:text-gray-300 truncate max-w-[150px]">
-                        {pendingFile.file.name}
-                      </span>
-                      <span className="text-xs text-gray-500">
-                        ({(pendingFile.file.size / 1024).toFixed(1)} KB)
-                      </span>
-                    </div>
-                    <button
-                      onClick={handleRemoveFile}
-                      className="text-gray-500 hover:text-red-500 transition-colors p-1"
-                      disabled={isTyping}
-                    >
-                      <X size={16} />
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Uploading indicator */}
-              {isUploading && (
-                <div className="mb-3 text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  Processing file...
-                </div>
-              )}
 
               <form
                 onSubmit={(e) => {
@@ -437,39 +308,20 @@ export const ChatBot: React.FC = () => {
                 }}
                 className="flex items-center space-x-2">
                 <input
-                  type="file"
-                  ref={fileInputRef}
-                  onChange={handleFileSelect}
-                  accept="image/jpeg,image/png,image/webp"
-                  className="hidden"
-                  disabled={isTyping || !isApiHealthy}
-                />
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  disabled={isTyping || !isApiHealthy || pendingFile !== null}
-                  className="w-11 h-11 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 text-gray-700 dark:text-gray-300 rounded-full flex items-center justify-center transition-colors flex-shrink-0"
-                  title="Upload image (JPG, PNG, WEBP, max 2MB)">
-                  <PaperclipIcon size={18} />
-                </button>
-                <input
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder={pendingFile ? "Add a message about this file (optional)..." : "Express yourself freely..."}
+                  placeholder="Express yourself freely..."
                   disabled={isTyping || !isApiHealthy}
                   className="flex-1 bg-gray-100 dark:bg-gray-800 border-transparent focus:bg-gray-100 dark:focus:bg-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 rounded-full px-4 py-3 text-sm outline-none transition-all disabled:opacity-50"
                 />
                 <button
                   type="submit"
-                  disabled={(!inputValue.trim() && !pendingFile) || isTyping || !isApiHealthy}
+                  disabled={!inputValue.trim() || isTyping || !isApiHealthy}
                   className="w-11 h-11 bg-emerald-500 hover:bg-emerald-600 disabled:bg-emerald-500 text-white rounded-full flex items-center justify-center transition-colors flex-shrink-0">
                   <SendIcon size={16} className="ml-0.5 text-white" />
                 </button>
               </form>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                Images: JPG, PNG, WEBP (max 2MB)
-              </p>
             </div>
           </motion.div>
         )}
