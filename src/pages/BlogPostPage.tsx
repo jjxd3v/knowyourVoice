@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeftIcon, ClockIcon, UserIcon, CalendarIcon } from 'lucide-react';
+import { ArrowLeftIcon, ClockIcon, UserIcon, CalendarIcon, FileTextIcon, DownloadIcon } from 'lucide-react';
 import { useAppContext } from '../store/AppContext';
 
 export const BlogPostPage: React.FC = () => {
@@ -85,6 +85,20 @@ export const BlogPostPage: React.FC = () => {
             <ClockIcon size={14} />
             <span>{post.readTime}</span>
           </div>
+          {post.pdfUrl && (
+            <>
+              <span className="hidden sm:inline">•</span>
+              <a
+                href={post.pdfUrl}
+                download
+                className="flex items-center space-x-1 text-primary hover:text-primary-hover transition-colors"
+              >
+                <FileTextIcon size={14} />
+                <span>Download PDF</span>
+                <DownloadIcon size={12} />
+              </a>
+            </>
+          )}
         </div>
       </div>
 

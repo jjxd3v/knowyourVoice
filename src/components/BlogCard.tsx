@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ClockIcon, UserIcon } from 'lucide-react';
+import { ClockIcon, UserIcon, FileTextIcon, DownloadIcon } from 'lucide-react';
 import { Article } from '../store/AppContext';
 interface BlogCardProps {
   post: Article;
@@ -63,9 +63,23 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
             </div>
             <span className="font-medium">{post.author}</span>
           </div>
-          <div className="flex items-center space-x-1 text-xs text-gray-500">
-            <ClockIcon size={14} />
-            <span>{post.readTime}</span>
+          <div className="flex items-center space-x-3">
+            {post.pdfUrl && (
+              <a
+                href={post.pdfUrl}
+                download
+                className="flex items-center space-x-1 text-xs text-primary hover:text-primary-hover transition-colors"
+                title="Download PDF"
+              >
+                <FileTextIcon size={14} />
+                <span>PDF</span>
+                <DownloadIcon size={12} />
+              </a>
+            )}
+            <div className="flex items-center space-x-1 text-xs text-gray-500">
+              <ClockIcon size={14} />
+              <span>{post.readTime}</span>
+            </div>
           </div>
         </div>
       </div>

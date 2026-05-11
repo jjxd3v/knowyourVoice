@@ -16,6 +16,7 @@ export interface Article {
   category: string;
   readTime: string;
   imageUrl: string;
+  pdfUrl?: string;
 }
 export interface Comment {
   id: string;
@@ -34,87 +35,138 @@ interface AppContextType {
 const initialArticles: Article[] = [
 {
   id: '1',
-  title: 'The Digital Age of Free Expression',
+  title: 'Internet and Social Networks: Freedom of Expression in the Digital Age',
   excerpt:
-  'How the internet has transformed freedom of speech and the new challenges we face in the modern era.',
+  'A comprehensive analysis of how the internet has transformed freedom of speech, examining the balance between open expression and content moderation in social networks.',
   content:
-  'The internet has fundamentally democratized the way we share ideas. Never before in human history has an individual had the power to broadcast their thoughts to a global audience instantaneously. This unprecedented level of connectivity has given voice to the marginalized and sparked movements that have changed the world.\n\nHowever, this digital age of free expression is not without its complexities. The sheer volume of information makes it difficult to distinguish fact from fiction. Echo chambers can amplify extreme views, and the anonymity of the web sometimes emboldens harmful behavior. As we navigate this landscape, we must find a balance between protecting the fundamental right to speak and ensuring our digital spaces remain safe and constructive.\n\nUltimately, the future of free expression online depends on our collective commitment to digital literacy and responsible engagement. By fostering critical thinking and empathy, we can harness the power of the internet to build a more informed and connected global community.',
-  author: 'Elena Rostova',
+  'This scholarly work examines the fundamental transformation of freedom of expression in the digital era. The internet and social networks have created unprecedented opportunities for individuals to share ideas globally, yet this democratization of speech presents complex challenges. The analysis explores how traditional concepts of free expression apply to digital platforms, the role of platform governance in moderating content, and the tension between protecting speech and preventing harm. Drawing from legal frameworks and case studies, this research provides insights into maintaining free expression rights while addressing misinformation, hate speech, and platform accountability in the modern digital landscape.',
+  author: 'Internet Governance Research Team',
   authorId: 'user-1',
-  date: '2023-10-15',
+  date: '2024-01-15',
   category: 'Digital Rights',
-  readTime: '4 min read',
-  imageUrl: 'https://picsum.photos/seed/post1/800/400'
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/digirights1/800/400',
+  pdfUrl: '/pdfs/Internet and social networks freedom of expression in the digital age.pdf'
 },
 {
   id: '2',
-  title: 'Building Inclusive Online Communities',
+  title: 'Open For Debate: Governance, Power, and the Limits of Internet Openness',
   excerpt:
-  'Practical tips for creating welcoming digital spaces where diverse voices can thrive and collaborate.',
+  'An in-depth examination of internet governance structures, power dynamics in digital spaces, and the boundaries of online openness in contemporary society.',
   content:
-  "Creating an inclusive online community doesn't happen by accident; it requires intentional design and active cultivation. The foundation of any welcoming space is a clear set of community guidelines that explicitly value diversity and prohibit harassment. But rules alone are not enough. Community leaders must model the behavior they wish to see, demonstrating empathy, active listening, and respectful disagreement.\n\nOne effective strategy is to actively elevate marginalized voices. This can be done by inviting diverse guest contributors, highlighting different perspectives in discussions, and ensuring that moderation teams reflect the diversity of the community itself. When people see themselves represented and respected, they are more likely to engage meaningfully.\n\nFinally, inclusivity means being open to feedback and willing to evolve. Communities are living ecosystems. By regularly checking in with members and being transparent about moderation decisions, we build trust and ensure that our digital spaces remain safe and welcoming for everyone.",
-  author: 'Marcus Chen',
+  'This research paper investigates the complex relationship between internet governance and power structures that shape digital openness. It analyzes how governance mechanisms affect access, participation, and expression online. The study examines various models of internet regulation, from centralized control to decentralized governance, and their implications for democratic participation. Through case studies of internet policy across different regions, the work highlights the challenges of maintaining an open internet while addressing legitimate concerns about security, privacy, and harmful content. The findings contribute to ongoing debates about who controls the internet and whose interests are served by current governance structures.',
+  author: 'Global Digital Policy Institute',
   authorId: 'user-2',
-  date: '2023-10-18',
-  category: 'Community',
-  readTime: '5 min read',
-  imageUrl: 'https://picsum.photos/seed/post2/800/400'
+  date: '2023-11-20',
+  category: 'Digital Rights',
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/digirights2/800/400',
+  pdfUrl: '/pdfs/Open For Debate Governance, Power, and the Limits of Internet Openness.pdf'
 },
 {
   id: '3',
-  title: 'AI Ethics: Balancing Innovation and Responsibility',
+  title: 'AI-Based Removal of Hate Speech: Freedom of Expression Implications',
   excerpt:
-  'Exploring the ethical considerations in AI development and how we can ensure technology serves humanity.',
+  'Examining the opportunities and risks that AI-powered content moderation presents for freedom of expression on digital social networks.',
   content:
-  'Artificial Intelligence is advancing at a breakneck pace, promising to revolutionize everything from healthcare to transportation. But with this immense power comes profound responsibility. The ethical implications of AI are vast, encompassing issues of bias, privacy, accountability, and the future of work. If we are to harness AI for the greater good, we must prioritize ethical considerations at every stage of development.\n\nOne of the most pressing concerns is algorithmic bias. AI systems learn from data, and if that data reflects historical prejudices, the AI will inevitably replicate and even amplify them. Addressing this requires diverse development teams and rigorous testing to ensure fairness. Furthermore, as AI systems become more autonomous, determining accountability when things go wrong becomes increasingly complex.\n\nTo navigate these challenges, we need a collaborative approach involving technologists, ethicists, policymakers, and the public. By establishing clear ethical frameworks and prioritizing human well-being, we can ensure that AI remains a tool for empowerment rather than a source of harm.',
-  author: 'Dr. Sarah Jenkins',
+  'As social networks increasingly deploy artificial intelligence to detect and remove hate speech, critical questions emerge about the impact on freedom of expression. This research examines both the potential benefits and significant risks of AI-driven content moderation. The study analyzes how automated systems identify harmful content, the accuracy rates of such systems, and the phenomenon of over-blocking legitimate speech. It explores the balance between creating safer online environments and preserving open discourse, examining transparency requirements, appeal mechanisms, and human oversight needs. The work provides recommendations for developing AI moderation systems that effectively address hate speech while respecting fundamental rights to expression.',
+  author: 'AI Ethics Research Consortium',
   authorId: 'user-3',
-  date: '2023-10-22',
+  date: '2024-02-10',
   category: 'AI Ethics',
-  readTime: '6 min read',
-  imageUrl: 'https://picsum.photos/seed/post3/800/400'
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/aiethics1/800/400',
+  pdfUrl: '/pdfs/AI-based removal of hate speech from digital social networks chances and risks for freedom of expression.pdf'
 },
 {
   id: '4',
-  title: 'Digital Literacy in the Modern World',
+  title: 'Ethical Issues and Challenges in Social Media: A Current Scenario',
   excerpt:
-  "Why understanding technology and media is essential for participating fully in today's society.",
+  'A comprehensive overview of contemporary ethical dilemmas facing social media platforms, users, and society in the digital age.',
   content:
-  "In today's hyper-connected world, digital literacy is no longer a luxury; it is a fundamental necessity. It goes beyond simply knowing how to use a smartphone or navigate a website. True digital literacy involves the ability to critically evaluate information, understand the mechanics of digital platforms, and protect one's privacy online. Without these skills, individuals are vulnerable to misinformation, manipulation, and digital exclusion.\n\nThe rapid spread of fake news and deepfakes highlights the urgent need for critical media consumption. We must teach people how to verify sources, recognize bias, and understand the algorithms that curate our digital feeds. Moreover, as more essential services move online, a lack of digital literacy can severely limit access to education, healthcare, and employment opportunities.\n\nPromoting digital literacy requires a concerted effort from educators, governments, and tech companies. By integrating digital skills into school curricula and providing accessible training for all ages, we can empower individuals to navigate the digital landscape safely and confidently.",
-  author: 'David Alaba',
+  'This systematic review addresses the multifaceted ethical challenges confronting social media ecosystems today. The research examines issues including algorithmic amplification of divisive content, data privacy concerns, platform accountability, digital addiction, and the spread of misinformation. Through analysis of current scenarios and case studies, the work identifies key ethical frameworks for evaluating social media practices. It explores the responsibilities of platforms, users, and regulators in creating ethical digital spaces. The findings highlight the urgent need for comprehensive ethical guidelines that balance innovation with human wellbeing, commercial interests with social good, and individual rights with collective safety in social media environments.',
+  author: 'Social Media Ethics Research Center',
   authorId: 'user-4',
-  date: '2023-10-25',
-  category: 'Education',
-  readTime: '4 min read',
-  imageUrl: 'https://picsum.photos/seed/post4/800/400'
+  date: '2023-12-05',
+  category: 'AI Ethics',
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/aiethics2/800/400',
+  pdfUrl: '/pdfs/Ethical Issues and Challenges in Social Media A Current Scenario.pdf'
 },
 {
   id: '5',
-  title: 'The Art of Respectful Disagreement Online',
+  title: 'A Systematic Review on Digital Literacy',
   excerpt:
-  'How to have productive debates and maintain civility in an increasingly polarized digital environment.',
+  'Comprehensive research examining the components, measurement, and development of digital literacy skills in contemporary society.',
   content:
-  "The internet often feels like a battleground of polarized opinions, where nuanced debate is drowned out by outrage and name-calling. However, it is entirely possible to disagree respectfully online. The key is to approach conversations with a genuine desire to understand, rather than simply to win an argument. This means listening actively, acknowledging valid points, and avoiding personal attacks.\n\nOne effective technique is to separate the idea from the person. You can fiercely critique an argument without attacking the character of the individual making it. Additionally, it's important to recognize when a conversation is no longer productive. If an exchange devolves into insults or bad-faith arguments, it's often best to disengage and preserve your mental energy.\n\nUltimately, respectful disagreement is about recognizing our shared humanity. Behind every screen name is a real person with their own experiences and perspectives. By cultivating empathy and practicing digital etiquette, we can transform online spaces from arenas of conflict into forums for meaningful dialogue.",
-  author: 'Maya Patel',
+  'Digital literacy has emerged as a critical competency for full participation in modern society. This systematic review synthesizes current research on digital literacy frameworks, examining the skills, knowledge, and attitudes that constitute digital competence. The analysis covers information literacy, media literacy, data literacy, and computational thinking as components of comprehensive digital literacy. It examines assessment methodologies and identifies gaps in current understanding. The work highlights the importance of digital literacy education across age groups and socioeconomic backgrounds, providing evidence-based recommendations for curriculum development and policy initiatives aimed at promoting widespread digital competence.',
+  author: 'International Digital Literacy Association',
   authorId: 'user-5',
-  date: '2023-10-28',
-  category: 'Communication',
-  readTime: '5 min read',
-  imageUrl: 'https://picsum.photos/seed/post5/800/400'
+  date: '2024-01-08',
+  category: 'Education',
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/education1/800/400',
+  pdfUrl: '/pdfs/A systematic review on digital literacy.pdf'
 },
 {
   id: '6',
-  title: 'Protecting Privacy While Staying Connected',
+  title: 'Key Factors in Digital Literacy in Learning and Education',
   excerpt:
-  'Best practices for safeguarding your personal information in an era of constant digital surveillance.',
+  'A systematic literature review using text mining to identify critical success factors for digital literacy integration in educational settings.',
   content:
-  "We live in an era where our personal data is a highly valuable commodity. Every click, search, and purchase leaves a digital footprint that is tracked, analyzed, and often sold. While staying connected is essential for modern life, it doesn't have to come at the cost of our privacy. By taking proactive steps, we can significantly reduce our digital exposure and protect our personal information.\n\nThe first line of defense is strong, unique passwords and two-factor authentication. These simple measures can prevent the vast majority of unauthorized access. Additionally, it's crucial to regularly review the privacy settings on your social media accounts and devices. Be mindful of the permissions you grant to apps, and consider using privacy-focused browsers and search engines that don't track your activity.\n\nUltimately, protecting your privacy requires an ongoing awareness of how your data is being used. By staying informed about digital rights and advocating for stronger privacy regulations, we can reclaim control over our personal information and navigate the digital world with confidence.",
-  author: 'Alex Mercer',
+  'This research applies systematic literature review methodology combined with text mining techniques to identify key factors influencing digital literacy in learning and education contexts. The study analyzes a comprehensive corpus of academic literature to extract patterns and themes related to successful digital literacy education. Key factors examined include institutional support, teacher training, curriculum design, technological infrastructure, and student engagement strategies. The text mining analysis reveals emerging trends and research gaps in the field. The findings provide actionable insights for educators, administrators, and policymakers seeking to enhance digital literacy outcomes in educational institutions, emphasizing the interconnected nature of technological, pedagogical, and organizational factors.',
+  author: 'Educational Technology Research Institute',
   authorId: 'user-6',
-  date: '2023-11-02',
+  date: '2023-09-25',
+  category: 'Education',
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/education2/800/400',
+  pdfUrl: '/pdfs/Key factors in digital literacy in learning and education a systematic literature review using text mining.pdf'
+},
+{
+  id: '7',
+  title: 'Profiling Youth Risk Experiences for Targeted Online Safety Interventions',
+  excerpt:
+  'Research on understanding offline and online risk patterns among youth to develop effective, targeted interventions for online safety.',
+  content:
+  'This important study examines the relationship between offline vulnerabilities and online risk experiences among young people. Through comprehensive profiling of youth populations, the research identifies patterns that can predict online safety risks including cyberbullying, grooming, exposure to harmful content, and privacy violations. The work develops a framework for risk assessment that considers individual, family, and community factors. Most significantly, the research translates these insights into recommendations for targeted interventions that address specific risk profiles rather than applying one-size-fits-all approaches. The findings are essential for parents, educators, and child protection professionals seeking to implement evidence-based online safety strategies.',
+  author: 'Youth Online Safety Research Network',
+  authorId: 'user-7',
+  date: '2023-10-12',
   category: 'Privacy',
-  readTime: '6 min read',
-  imageUrl: 'https://picsum.photos/seed/post6/800/400'
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/privacy1/800/400',
+  pdfUrl: '/pdfs/Profiling the Offline and Online Risk Experiences of Youth to Develop Targeted Interventions for Online Safety.pdf'
+},
+{
+  id: '8',
+  title: 'Tackling Online Violence Against Children',
+  excerpt:
+  'Comprehensive strategies and interventions for preventing and responding to online violence targeting children in digital environments.',
+  content:
+  'Online violence against children represents one of the most serious challenges of the digital age. This research examines the various forms of online violence including sexual exploitation, cyberbullying, harassment, and exposure to traumatic content. The study analyzes the effectiveness of current prevention strategies, reporting mechanisms, and support services. It presents a multi-stakeholder approach involving technology companies, law enforcement, educators, parents, and children themselves. The work emphasizes the importance of age-appropriate digital safety education, robust content moderation, and victim support services. The findings provide a roadmap for coordinated action to protect children while preserving the educational and social benefits of digital participation.',
+  author: 'Child Protection Digital Alliance',
+  authorId: 'user-8',
+  date: '2024-01-30',
+  category: 'Privacy',
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/privacy2/800/400',
+  pdfUrl: '/pdfs/Tackling Online Violence Against Children.pdf'
+},
+{
+  id: '9',
+  title: 'Cyberbullying Prevention and Intervention Efforts: Current Knowledge and Future Directions',
+  excerpt:
+  'A comprehensive review of evidence-based approaches to preventing and intervening in cyberbullying within online communities.',
+  content:
+  'Cyberbullying remains a pervasive problem affecting online communities, particularly among young people. This research synthesizes current knowledge about effective prevention and intervention strategies. The study examines school-based programs, parental mediation approaches, peer support initiatives, and platform-level interventions. It analyzes the factors that make some approaches more successful than others, including duration, intensity, and comprehensive stakeholder involvement. The work identifies gaps in current research and practice, proposing future directions for more effective cyberbullying prevention. The findings emphasize the importance of combining technological solutions with social-emotional learning and community-wide awareness campaigns to create lasting change in online behavior norms.',
+  author: 'Cyberbullying Research Center',
+  authorId: 'user-9',
+  date: '2023-08-18',
+  category: 'Community',
+  readTime: 'PDF Document',
+  imageUrl: 'https://picsum.photos/seed/community1/800/400',
+  pdfUrl: '/pdfs/espelage-hong-2016-cyberbullying-prevention-and-intervention-efforts-current-knowledge-and-future-directions.pdf'
 }];
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
