@@ -29,7 +29,7 @@ export const GuidelinesPage: React.FC = () => {
           <ScaleIcon size={32} />
         </div>
         <h1 className="font-serif text-4xl md:text-5xl font-bold text-text dark:text-text-dark mb-4">
-          ⚖️ Awareness & Guidance
+          ⚖️ Guidance
         </h1>
         <p className="text-xl text-gray-500 dark:text-gray-400 font-light max-w-2xl mx-auto">
           Learn how to express yourself responsibly, respect others, and become

@@ -13,7 +13,8 @@ export const Navbar: React.FC = () => {
     { name: 'About', path: '/about' },
     { name: 'Guidelines', path: '/guidelines' },
     { name: 'Blog', path: '/blog' },
-    { name: 'Contact', path: '/contact' }
+    { name: 'Feedback', path: '/contact' },
+    { name: 'Contact Us', path: '/contact-us' }
   ];
 
   const isActive = (path: string) => {
@@ -30,7 +31,7 @@ export const Navbar: React.FC = () => {
               <BookOpenIcon size={24} />
             </div>
             <span className="font-serif text-2xl font-bold text-text dark:text-text-dark tracking-tight">
-              Know Your Voice
+              KYRO
             </span>
           </Link>
 

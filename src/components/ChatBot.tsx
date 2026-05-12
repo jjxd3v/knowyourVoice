@@ -189,7 +189,7 @@ export const ChatBot: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-6 right-6 w-[370px] sm:w-[420px] h-[550px] max-h-[85vh] bg-gray-100 dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 flex flex-col z-50 overflow-hidden">
+            className="fixed bottom-6 right-6 w-[370px] sm:w-[420px] h-[550px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col z-50 overflow-hidden">
 
             {/* Header */}
             <div className="bg-primary p-5 text-white flex justify-between items-center">
@@ -219,14 +219,14 @@ export const ChatBot: React.FC = () => {
 
             {/* API Error Alert */}
             {apiError && (
-              <div className="bg-red-50 dark:bg-red-900/30 border-b border-red-200 dark:border-red-800 p-3 flex items-start gap-2">
-                <AlertCircleIcon size={16} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-red-700 dark:text-red-300">{apiError}</p>
+              <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-start gap-2">
+                <AlertCircleIcon size={16} className="text-red-600 flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-red-700">{apiError}</p>
               </div>
             )}
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gray-50/50 dark:bg-gray-800/50">
+            <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gray-50/50">
               {messages.map((msg) => (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
@@ -237,20 +237,20 @@ export const ChatBot: React.FC = () => {
                     <div
                       className={`flex-shrink-0 w-8 h-8 rounded-full overflow-hidden flex items-center justify-center ${
                         msg.sender === 'user'
-                          ? 'bg-gray-200 dark:bg-gray-700 ml-2'
+                          ? 'bg-gray-200 border border-gray-300 ml-2'
                           : 'mr-2'
                       }`}>
                       {msg.sender === 'user' ? (
-                        <UserIcon size={14} className="text-gray-600 dark:text-gray-300" />
+                        <UserIcon size={14} className="text-gray-600" />
                       ) : (
                         <img src={BOT_AVATAR} alt="Bot" className="w-full h-full object-cover" />
                       )}
                     </div>
                     <div
-                      className={`p-3.5 rounded-2xl text-sm leading-relaxed ${
+                      className={`p-3.5 rounded-2xl text-sm leading-relaxed border-2 ${
                         msg.sender === 'user'
-                          ? 'bg-primary text-white rounded-tr-none whitespace-pre-wrap'
-                          : 'bg-surface dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-800 dark:text-gray-100 rounded-tl-none shadow-sm prose prose-sm dark:prose-invert max-w-none'
+                          ? 'bg-primary border-primary text-white rounded-tr-none whitespace-pre-wrap'
+                          : 'bg-white border-gray-300 text-gray-800 rounded-tl-none shadow-sm prose prose-sm max-w-none'
                       }`}>
                       {msg.sender === 'bot' ? (
                         <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -270,13 +270,13 @@ export const ChatBot: React.FC = () => {
                     <div className="flex-shrink-0 w-8 h-8 rounded-full mr-2 overflow-hidden">
                       <img src={BOT_AVATAR} alt="Bot" className="w-full h-full object-cover" />
                     </div>
-                    <div className="p-4 bg-surface dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-2xl rounded-tl-none shadow-sm flex space-x-1.5 items-center">
+                    <div className="p-4 bg-white border border-gray-200 rounded-2xl rounded-tl-none shadow-sm flex space-x-1.5 items-center">
                       {[0, 0.2, 0.4].map((delay, i) => (
                         <motion.div
                           key={i}
                           animate={{ y: [0, -5, 0] }}
                           transition={{ repeat: Infinity, duration: 0.6, delay }}
-                          className="w-2 h-2 bg-gray-400 dark:bg-gray-500 rounded-full"
+                          className="w-2 h-2 bg-gray-400 border border-gray-500 rounded-full"
                         />
                       ))}
                     </div>
@@ -287,14 +287,14 @@ export const ChatBot: React.FC = () => {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-gray-100 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div className="p-4 bg-gray-100 border-t border-gray-200">
               <div className="flex flex-wrap gap-1.5 mb-3">
                 {quickSuggestions.map((suggestion, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleSend(suggestion)}
                     disabled={isTyping || !isApiHealthy}
-                    className="flex items-center text-xs font-medium bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 disabled:opacity-50 text-gray-700 dark:text-gray-300 px-2.5 py-1.5 rounded-full transition-colors">
+                    className="flex items-center text-xs font-medium bg-gray-100 border border-gray-300 hover:bg-gray-200 disabled:opacity-50 text-gray-700 px-2.5 py-1.5 rounded-full transition-colors">
                     <SparklesIcon size={10} className="mr-1 text-primary" />
                     {suggestion}
                   </button>
@@ -313,7 +313,7 @@ export const ChatBot: React.FC = () => {
                   onChange={(e) => setInputValue(e.target.value)}
                   placeholder="Express yourself freely..."
                   disabled={isTyping || !isApiHealthy}
-                  className="flex-1 bg-gray-100 dark:bg-gray-800 border-transparent focus:bg-gray-100 dark:focus:bg-gray-800 focus:border-primary focus:ring-2 focus:ring-primary/20 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 rounded-full px-4 py-3 text-sm outline-none transition-all disabled:opacity-50"
+                  className="flex-1 bg-gray-100 border border-gray-300 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/20 text-gray-900 placeholder-gray-500 rounded-full px-4 py-3 text-sm outline-none transition-all disabled:opacity-50"
                 />
                 <button
                   type="submit"

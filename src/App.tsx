@@ -11,6 +11,7 @@ import { GuidelinesPage } from './pages/GuidelinesPage';
 import { BlogPage } from './pages/BlogPage';
 import { BlogPostPage } from './pages/BlogPostPage';
 import { ContactPage } from './pages/ContactPage';
+import { ContactUsPage } from './pages/ContactUsPage';
 import { NotFoundPage } from './pages/NotFoundPage';
 
 export function App() {
@@ -30,6 +31,7 @@ export function App() {
                 <Route path="/blog/:id" element={<BlogPostPage />} />
                 <Route path="/post/:id" element={<BlogPostPage />} />
                 <Route path="/contact" element={<ContactPage />} />
+                <Route path="/contact-us" element={<ContactUsPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </main>

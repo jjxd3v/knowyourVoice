@@ -51,7 +51,7 @@ export const ContactPage: React.FC = () => {
           Share Your Feedback
         </h1>
         <p className="text-xl text-gray-500 dark:text-gray-400 font-light">
-          Your feedback helps us improve Know Your Voice and create a better
+          Your feedback helps us improve KYRO and create a better
           experience for everyone.
         </p>
       </div>

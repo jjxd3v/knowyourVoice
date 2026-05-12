@@ -36,11 +36,11 @@ export const HomePage: React.FC = () => {
           className="max-w-3xl mx-auto">
           
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-text dark:text-text-dark mb-6 leading-tight">
-            Know Your Voice
+            Know Your Rights Online
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed font-light">
-            An educational platform to learn about digital expression, online safety,
-            and responsible communication. Read articles and gain knowledge to apply
+            An educational platform to learn about digital rights, online safety,
+            and responsible communication. Access research articles and gain knowledge to apply
             on your social media platforms.
           </p>
           <button
