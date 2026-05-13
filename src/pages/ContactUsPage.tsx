@@ -49,12 +49,16 @@ export const ContactUsPage: React.FC = () => {
                 src="/images/glen-profile.jpg" 
                 alt="Glen Mark Plaza" 
                 className="w-20 h-20 rounded-full object-cover mr-4"
+                onLoad={(e) => {
+                  console.log('Glen profile image loaded successfully');
+                }}
                 onError={(e) => {
+                  console.error('Failed to load Glen profile image:', e.currentTarget.src);
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling?.classList.remove('hidden');
                 }}
               />
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-2xl mr-4 hidden">
+              <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-2xl mr-4">
                 GP
               </div>
             </div>
