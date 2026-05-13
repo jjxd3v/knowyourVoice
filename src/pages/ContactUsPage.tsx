@@ -44,24 +44,11 @@ export const ContactUsPage: React.FC = () => {
         <div className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark h-full">
           
           <div className="flex items-center mb-6">
-            <div className="relative">
-              <img 
-                src="/images/glen-profile.jpg" 
+            <img 
+                src="/images/glen-profile.jpg?t=2026051309" 
                 alt="Glen Mark Plaza" 
                 className="w-20 h-20 rounded-full object-cover mr-4"
-                onLoad={(e) => {
-                  console.log('Glen profile image loaded successfully');
-                }}
-                onError={(e) => {
-                  console.error('Failed to load Glen profile image:', e.currentTarget.src);
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }}
               />
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-white font-bold text-2xl mr-4">
-                GP
-              </div>
-            </div>
             <div>
               <h3 className="font-bold text-lg text-text dark:text-text-dark">Glen Mark Plaza</h3>
               <p className="text-gray-600 dark:text-gray-300">UI/UX Designer</p>
