@@ -5,8 +5,12 @@ import {
   XCircleIcon,
   PenToolIcon,
   GlobeIcon,
-  ScaleIcon } from
-'lucide-react';
+  ScaleIcon,
+  ExternalLinkIcon
+} from 'lucide-react';
+
+const referenceLinkClass =
+  'mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-sm inline-flex items-center gap-1.5 text-primary hover:text-primary-hover font-medium hover:underline';
 export const GuidelinesPage: React.FC = () => {
   return (
     <motion.div
@@ -67,6 +71,14 @@ export const GuidelinesPage: React.FC = () => {
                 </li>
               )}
             </ul>
+            <a
+              href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3434972"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${referenceLinkClass} border-green-200/60 dark:border-green-900/40`}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
 
           {/* Don'ts */}
@@ -93,6 +105,14 @@ export const GuidelinesPage: React.FC = () => {
                 </li>
               )}
             </ul>
+            <a
+              href="https://cyberbullying.org/#"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${referenceLinkClass} border-red-200/60 dark:border-red-900/40`}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
         </div>
       </div>
@@ -112,6 +132,14 @@ export const GuidelinesPage: React.FC = () => {
               Take a moment to reflect before posting. Ask yourself: Is this
               true? Is it helpful? Is it kind? Would I say this in person?
             </p>
+            <a
+              href="https://www.tandfonline.com/doi/abs/10.1080/1554480X.2017.1363046"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={referenceLinkClass}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
           <div className="bg-white/70 dark:bg-surface-dark/70 p-6 rounded-2xl">
             <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -121,6 +149,14 @@ export const GuidelinesPage: React.FC = () => {
               Check your sources before sharing information. Misinformation
               spreads quickly — be part of the solution, not the problem.
             </p>
+            <a
+              href="https://ieeexplore.ieee.org/abstract/document/9677010"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={referenceLinkClass}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
           <div className="bg-white/70 dark:bg-surface-dark/70 p-6 rounded-2xl">
             <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">Respect privacy</h3>
@@ -128,6 +164,14 @@ export const GuidelinesPage: React.FC = () => {
               Never share someone else's personal details, photos, or private
               conversations without their explicit consent.
             </p>
+            <a
+              href="https://link.springer.com/article/10.1007/s11948-015-9674-9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={referenceLinkClass}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
           <div className="bg-white/70 dark:bg-surface-dark/70 p-6 rounded-2xl">
             <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -137,6 +181,14 @@ export const GuidelinesPage: React.FC = () => {
               Give people the benefit of the doubt. Tone is hard to read online
               — ask for clarification before reacting.
             </p>
+            <a
+              href="https://link.springer.com/article/10.1007/s10551-025-06065-y"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={referenceLinkClass}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
           <div className="bg-white/70 dark:bg-surface-dark/70 p-6 rounded-2xl">
             <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -146,6 +198,14 @@ export const GuidelinesPage: React.FC = () => {
               Frame disagreements as opportunities for learning. Say "I see it
               differently because…" instead of "You're wrong."
             </p>
+            <a
+              href="https://link.springer.com/chapter/10.1007/978-3-031-54952-6_14"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={referenceLinkClass}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
           <div className="bg-white/70 dark:bg-surface-dark/70 p-6 rounded-2xl">
             <h3 className="font-bold text-gray-900 dark:text-gray-100 mb-2">
@@ -155,6 +215,14 @@ export const GuidelinesPage: React.FC = () => {
               If a conversation becomes heated, it's okay to take a break.
               Protecting your mental health is responsible posting too.
             </p>
+            <a
+              href="https://journals.lww.com/bsam/abstract/2023/02000/_we_ve_got_this___middle_aged_and_older_couples_.6.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={referenceLinkClass}>
+              Further reading
+              <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+            </a>
           </div>
         </div>
       </div>
@@ -212,6 +280,15 @@ export const GuidelinesPage: React.FC = () => {
             world a better place."
           </p>
         </div>
+
+        <a
+          href="https://novel-coronavirus.onlinelibrary.wiley.com/doi/10.1002/9781394240821.ch19"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`${referenceLinkClass} mt-8 w-full justify-center border-gray-200 dark:border-gray-700`}>
+          Further reading
+          <ExternalLinkIcon size={14} className="flex-shrink-0" aria-hidden />
+        </a>
       </div>
     </motion.div>);
 

@@ -28,7 +28,7 @@ export const Footer: React.FC = () => {
               to="/guidelines"
               className="hover:text-primary dark:hover:text-primary transition-colors">
               
-              Guidelines
+              Guidance
             </Link>
             <Link
               to="/contact"

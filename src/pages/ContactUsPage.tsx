@@ -63,11 +63,11 @@ export const ContactUsPage: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center text-gray-700 dark:text-gray-300">
               <MapPinIcon size={20} className="mr-3 text-primary" />
-              <span>Philippines</span>
+              <span>Matho, Surigao del Sur</span>
             </div>
             <div className="flex items-center text-gray-700 dark:text-gray-300">
               <MailIcon size={20} className="mr-3 text-primary" />
-              <span>support@kyro.digital</span>
+              <span>glenamark@nemsu.edu.ph</span>
             </div>
             <div className="flex items-center text-gray-700 dark:text-gray-300">
               <PhoneIcon size={20} className="mr-3 text-primary" />
@@ -120,13 +120,13 @@ export const ContactUsPage: React.FC = () => {
                 </div>
               </a>
               <a
-                href="mailto:glenmark.plaza@example.com"
+                href="mailto:glenmark.plaza@nemsu.edu.ph"
                 className="flex items-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors group"
               >
                 <MailIcon size={20} className="mr-2 text-red-600 dark:text-red-400" />
                 <div>
                   <p className="font-medium text-sm text-text dark:text-text-dark group-hover:text-red-600 dark:group-hover:text-red-400">Gmail</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">glenmark.plaza@example.com</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">glenmark.plaza@nemsu.edu.ph</p>
                 </div>
               </a>
             </div>
@@ -165,7 +165,7 @@ export const ContactUsPage: React.FC = () => {
           <div className="space-y-4">
             <div className="flex items-center text-gray-700 dark:text-gray-300">
               <MapPinIcon size={20} className="mr-3 text-secondary" />
-              <span>Philippines</span>
+              <span>Tago, Surigao del Sur</span>
             </div>
             <div className="flex items-center text-gray-700 dark:text-gray-300">
               <MailIcon size={20} className="mr-3 text-secondary" />
@@ -183,7 +183,7 @@ export const ContactUsPage: React.FC = () => {
             <div className="grid grid-cols-2 gap-3">
               <a
                 href="https://www.facebook.com/joemarjay.rogero/"
-                target="https://www.facebook.com/joemarjay.rogero/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors group"
               >
@@ -221,13 +221,13 @@ export const ContactUsPage: React.FC = () => {
               </a>
               
               <a
-                href="mailto:joemar.rogacion@example.com"
+                href="mailto:jjarogero@nemsu.edu.ph"
                 className="flex items-center p-3 bg-red-50 dark:bg-red-900/20 rounded-lg hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors group"
               >
                 <MailIcon size={20} className="mr-2 text-red-600 dark:text-red-400" />
                 <div>
                   <p className="font-medium text-sm text-text dark:text-text-dark group-hover:text-red-600 dark:group-hover:text-red-400">Gmail</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">joemar.rogacion@example.com</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">jjarogero@nemsu.edu.ph</p>
                 </div>
               </a>
             </div>
