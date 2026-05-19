@@ -1,9 +1,23 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { XIcon, SendIcon, UserIcon, SparklesIcon, Trash2Icon, AlertCircleIcon } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { sendMessage, checkApiHealth, Message as ApiMessage } from '../utils/chatApi';
+
+const chatMarkdownComponents: Components = {
+  a: ({ href, children, ...props }) => (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary underline hover:text-primary-hover break-words"
+      {...props}
+    >
+      {children}
+    </a>
+  ),
+};
 
 interface Message {
   id: string;
@@ -253,7 +267,10 @@ export const ChatBot: React.FC = () => {
                           : 'bg-white border-gray-300 text-gray-800 rounded-tl-none shadow-sm prose prose-sm max-w-none'
                       }`}>
                       {msg.sender === 'bot' ? (
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm]}
+                          components={chatMarkdownComponents}
+                        >
                           {msg.text}
                         </ReactMarkdown>
                       ) : (
