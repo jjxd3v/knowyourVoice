@@ -105,7 +105,7 @@ export const BlogPostPage: React.FC = () => {
       <img
         src={post.imageUrl}
         alt={post.title}
-        className="w-full h-[400px] object-cover rounded-2xl mb-10 shadow-sm" />
+        className="w-full h-48 sm:h-64 md:h-[400px] object-cover rounded-2xl mb-10 shadow-sm" />
       
 
       <div className="prose prose-lg max-w-none text-gray-800 dark:text-gray-200 font-sans">
@@ -114,7 +114,7 @@ export const BlogPostPage: React.FC = () => {
         </p>
 
         {paragraphs.map((paragraph: any, index: number) =>
-        <p key={index} className="mb-6 leading-relaxed text-lg">
+        <p key={index} className="mb-6 leading-relaxed text-base md:text-lg">
             {paragraph}
           </p>
         )}

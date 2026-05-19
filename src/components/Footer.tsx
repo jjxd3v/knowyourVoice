@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex space-x-6 text-sm text-gray-500 dark:text-gray-400">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 text-sm text-gray-500 dark:text-gray-400">
             <Link to="/about" className="hover:text-primary dark:hover:text-primary transition-colors">
               About
             </Link>

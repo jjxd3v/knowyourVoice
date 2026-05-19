@@ -19,7 +19,7 @@ export function App() {
     <ThemeProvider>
       <AppProvider>
         <Router>
-          <div className="min-h-screen flex flex-col bg-background dark:bg-background-dark font-sans text-text dark:text-text-dark selection:bg-primary/20">
+          <div className="min-h-dvh overflow-x-hidden flex flex-col bg-background dark:bg-background-dark font-sans text-text dark:text-text-dark selection:bg-primary/20">
             <Navbar />
 
             <main className="flex-grow relative">

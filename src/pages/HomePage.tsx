@@ -20,7 +20,7 @@ export const HomePage: React.FC = () => {
       className="flex flex-col items-center">
       
       {/* Hero Section */}
-      <section className="w-full bg-primary/5 dark:bg-primary/10 py-20 md:py-32 px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
+      <section className="w-full bg-primary/5 dark:bg-primary/10 py-12 sm:py-20 md:py-32 px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
         <motion.div
           initial={{
             y: 20,
@@ -35,7 +35,7 @@ export const HomePage: React.FC = () => {
           }}
           className="max-w-3xl mx-auto">
           
-          <h1 className="font-serif text-5xl md:text-7xl font-bold text-text dark:text-text-dark mb-6 leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-7xl font-bold text-text dark:text-text-dark mb-6 leading-tight">
             Know Your Rights Online
           </h1>
           <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 leading-relaxed font-light">
@@ -48,7 +48,7 @@ export const HomePage: React.FC = () => {
               const event = new CustomEvent('open-chatbot');
               window.dispatchEvent(event);
             }}
-            className="inline-flex items-center justify-center px-8 py-4 text-lg font-medium rounded-full text-white bg-primary hover:bg-primary-hover transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 text-base sm:text-lg font-medium rounded-full text-white bg-primary hover:bg-primary-hover transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
             
             <MessageSquareIcon className="mr-2" size={24} />
             Start Chatting

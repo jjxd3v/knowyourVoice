@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
             <div className="bg-primary text-white p-2 rounded-lg group-hover:bg-primary-hover transition-colors">
               <BookOpenIcon size={24} />
             </div>
-            <span className="font-serif text-2xl font-bold text-text dark:text-text-dark tracking-tight">
+            <span className="font-serif text-xl sm:text-2xl font-bold text-text dark:text-text-dark tracking-tight">
               KYRO
             </span>
           </Link>
@@ -81,7 +81,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Nav */}
       {isOpen && (
-        <div className="md:hidden bg-white dark:bg-surface-dark border-b border-gray-200 dark:border-border-dark shadow-lg absolute w-full">
+        <div className="md:hidden bg-white dark:bg-surface-dark border-b border-gray-200 dark:border-border-dark shadow-lg absolute w-full max-h-[calc(100dvh-4rem)] overflow-y-auto">
           <div className="px-4 pt-2 pb-4 space-y-1">
             {navLinks.map((link) => (
               <Link

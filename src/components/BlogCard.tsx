@@ -56,7 +56,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, index = 0 }) => {
           {post.excerpt}
         </p>
 
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-100 dark:border-border-dark">
+        <div className="flex flex-wrap items-center justify-between gap-2 mt-auto pt-4 border-t border-gray-100 dark:border-border-dark">
           <div className="flex items-center space-x-2 text-sm text-gray-700 dark:text-gray-300">
             <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
               <UserIcon size={14} />

@@ -8,10 +8,20 @@
 
 /* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   background-color: #FAFAF8;
   color: #1A1A2E;
   font-family: 'DM Sans', sans-serif;
+  min-height: 100dvh;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .dark body,

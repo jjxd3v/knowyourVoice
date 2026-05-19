@@ -29,8 +29,8 @@ export const AboutPage: React.FC = () => {
 
       <div className="space-y-12">
         <section className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark">
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mr-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 mb-6">
+            <div className="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center sm:mr-4 flex-shrink-0">
               <BookOpenIcon size={24} />
             </div>
             <h2 className="font-serif text-2xl font-bold text-text dark:text-text-dark">
@@ -47,8 +47,8 @@ export const AboutPage: React.FC = () => {
         </section>
 
         <section className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark">
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mr-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 mb-6">
+            <div className="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center sm:mr-4 flex-shrink-0">
               <TargetIcon size={24} />
             </div>
             <h2 className="font-serif text-2xl font-bold text-text dark:text-text-dark">
@@ -65,8 +65,8 @@ export const AboutPage: React.FC = () => {
         </section>
 
         <section className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark">
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mr-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 mb-6">
+            <div className="w-12 h-12 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center sm:mr-4 flex-shrink-0">
               <GlobeIcon size={24} />
             </div>
             <h2 className="font-serif text-2xl font-bold text-text dark:text-text-dark">
@@ -84,8 +84,8 @@ export const AboutPage: React.FC = () => {
         </section>
 
         <section className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark">
-          <div className="flex items-center mb-6">
-            <div className="w-12 h-12 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center mr-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 mb-6">
+            <div className="w-12 h-12 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center sm:mr-4 flex-shrink-0">
               <CpuIcon size={24} />
             </div>
             <h2 className="font-serif text-2xl font-bold text-text dark:text-text-dark">

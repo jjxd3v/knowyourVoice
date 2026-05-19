@@ -43,11 +43,11 @@ export const ContactUsPage: React.FC = () => {
         {/* KYRO Profile Section */}
         <div className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark h-full">
           
-          <div className="flex items-center mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
             <img 
                 src="/images/glen-profile.jpg?t=2026051309" 
                 alt="Glen Mark Plaza" 
-                className="w-20 h-20 rounded-full object-cover mr-4"
+                className="w-20 h-20 rounded-full object-cover sm:mr-4 flex-shrink-0"
               />
             <div>
               <h3 className="font-bold text-lg text-text dark:text-text-dark">Glen Mark Plaza</h3>
@@ -78,7 +78,7 @@ export const ContactUsPage: React.FC = () => {
           {/* Follow Me Social Media */}
           <div className="mt-6 pt-6 border-t border-gray-200 dark:border-border-dark">
             <h3 className="font-semibold text-text dark:text-text-dark mb-4">Follow Me</h3>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
                 href="https://www.facebook.com/glenmark.plaza?rdid=KesqcobTpdeELhfA&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Da7oMgfX8%2F#"
                 target="_blank"
@@ -136,12 +136,12 @@ export const ContactUsPage: React.FC = () => {
         {/* Partner Profile Section */}
         <div className="bg-white dark:bg-surface-dark p-8 md:p-10 rounded-3xl shadow-sm border border-gray-100 dark:border-border-dark h-full">
           
-          <div className="flex items-center mb-6">
-            <div className="relative">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+            <div className="relative flex-shrink-0">
               <img 
                 src="/images/joemar-profile.png" 
                 alt="Joemar Jay Rogero" 
-                className="w-20 h-20 rounded-full object-cover mr-4"
+                className="w-20 h-20 rounded-full object-cover sm:mr-4"
                 onError={(e) => {
                   e.currentTarget.style.display = 'none';
                   e.currentTarget.nextElementSibling?.classList.remove('hidden');
@@ -180,7 +180,7 @@ export const ContactUsPage: React.FC = () => {
           {/* Follow Me Social Media */}
           <div className="mt-6 pt-6 border-t border-gray-200 dark:border-border-dark">
             <h3 className="font-semibold text-text dark:text-text-dark mb-4">Follow Me</h3>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
                 href="https://www.facebook.com/joemarjay.rogero/"
                 target="_blank"

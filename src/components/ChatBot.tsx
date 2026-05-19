@@ -100,6 +100,18 @@ export const ChatBot: React.FC = () => {
     return () => window.removeEventListener('open-chatbot', handleOpen);
   }, []);
 
+  // Prevent background scroll when chat is open on mobile
+  useEffect(() => {
+    if (!isOpen) return;
+    const isMobile = window.matchMedia('(max-width: 639px)').matches;
+    if (!isMobile) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [isOpen]);
+
   const quickSuggestions = [
     'How do I express my opinion respectfully?',
     "I want to share something but I'm worried",
@@ -188,7 +200,7 @@ export const ChatBot: React.FC = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 w-16 h-16 rounded-full shadow-xl z-50 overflow-hidden border-2 border-primary hover:border-primary-hover transition-colors"
+            className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 safe-bottom w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-xl z-50 overflow-hidden border-2 border-primary hover:border-primary-hover transition-colors"
             aria-label="Open chat">
             <img src={BOT_AVATAR} alt="Chat" className="w-full h-full object-cover" />
           </motion.button>
@@ -203,7 +215,7 @@ export const ChatBot: React.FC = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-6 right-6 w-[370px] sm:w-[420px] h-[550px] max-h-[85vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col z-50 overflow-hidden">
+            className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl inset-x-0 bottom-0 w-full max-h-[92dvh] rounded-t-3xl sm:inset-x-auto sm:right-6 sm:bottom-6 sm:left-auto sm:w-[420px] sm:max-h-[85vh] sm:h-[550px] sm:rounded-3xl safe-bottom">
 
             {/* Header */}
             <div className="bg-primary p-5 text-white flex justify-between items-center">
@@ -240,7 +252,7 @@ export const ChatBot: React.FC = () => {
             )}
 
             {/* Messages Area */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-5 bg-gray-50/50">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-5 space-y-5 bg-gray-50/50">
               {messages.map((msg) => (
                 <motion.div
                   initial={{ opacity: 0, y: 8 }}
@@ -264,7 +276,7 @@ export const ChatBot: React.FC = () => {
                       className={`p-3.5 rounded-2xl text-sm leading-relaxed border-2 ${
                         msg.sender === 'user'
                           ? 'bg-primary border-primary text-white rounded-tr-none whitespace-pre-wrap'
-                          : 'bg-white border-gray-300 text-gray-800 rounded-tl-none shadow-sm prose prose-sm max-w-none'
+                          : 'bg-white border-gray-300 text-gray-800 rounded-tl-none shadow-sm prose prose-sm max-w-none break-words prose-pre:overflow-x-auto prose-table:block prose-table:overflow-x-auto'
                       }`}>
                       {msg.sender === 'bot' ? (
                         <ReactMarkdown
@@ -304,8 +316,8 @@ export const ChatBot: React.FC = () => {
             </div>
 
             {/* Input Area */}
-            <div className="p-4 bg-gray-100 border-t border-gray-200">
-              <div className="flex flex-wrap gap-1.5 mb-3">
+            <div className="p-3 sm:p-4 bg-gray-100 border-t border-gray-200 safe-bottom">
+              <div className="flex flex-wrap gap-1.5 mb-3 max-h-24 overflow-y-auto sm:max-h-none sm:overflow-visible">
                 {quickSuggestions.map((suggestion, idx) => (
                   <button
                     key={idx}
