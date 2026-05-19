@@ -100,18 +100,6 @@ export const ChatBot: React.FC = () => {
     return () => window.removeEventListener('open-chatbot', handleOpen);
   }, []);
 
-  // Prevent background scroll when chat is open on mobile
-  useEffect(() => {
-    if (!isOpen) return;
-    const isMobile = window.matchMedia('(max-width: 639px)').matches;
-    if (!isMobile) return;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [isOpen]);
-
   const quickSuggestions = [
     'How do I express my opinion respectfully?',
     "I want to share something but I'm worried",
@@ -211,15 +199,15 @@ export const ChatBot: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            initial={{ opacity: 0, y: 12, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
+            exit={{ opacity: 0, y: 12, scale: 0.92 }}
             transition={{ duration: 0.25 }}
             style={{ transformOrigin: 'bottom right' }}
-            className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl bottom-4 right-4 safe-bottom w-[min(calc(100vw-2rem),340px)] sm:w-[420px] h-[min(520px,75dvh)] sm:h-[550px] max-h-[75dvh] sm:max-h-[85vh] rounded-3xl">
+            className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl bottom-20 right-4 safe-bottom w-[min(calc(100vw-2rem),380px)] h-[min(70dvh,520px)] max-h-[70dvh] rounded-3xl sm:bottom-6 sm:right-6 sm:w-[420px] sm:h-[550px] sm:max-h-[85vh]">
 
             {/* Header */}
-            <div className="bg-primary p-5 text-white flex justify-between items-center">
+            <div className="bg-primary p-4 sm:p-5 text-white flex justify-between items-center">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                   <img src={BOT_AVATAR} alt="Bot" className="w-full h-full object-cover" />
