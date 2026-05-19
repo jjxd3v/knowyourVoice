@@ -204,7 +204,7 @@ export const ChatBot: React.FC = () => {
             exit={{ opacity: 0, y: 12, scale: 0.92 }}
             transition={{ duration: 0.25 }}
             style={{ transformOrigin: 'bottom right' }}
-            className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl bottom-20 right-4 safe-bottom w-[min(calc(100vw-2rem),380px)] h-[min(70dvh,520px)] max-h-[70dvh] rounded-3xl sm:bottom-6 sm:right-6 sm:w-[420px] sm:h-[550px] sm:max-h-[85vh]">
+            className="fixed z-50 flex flex-col overflow-hidden bg-white border border-gray-200 shadow-2xl bottom-4 right-4 safe-bottom w-[min(calc(100vw-2rem),380px)] h-[min(calc(100dvh-5.5rem),640px)] max-h-[calc(100dvh-5.5rem)] rounded-3xl sm:bottom-6 sm:right-6 sm:w-[420px] sm:h-[550px] sm:max-h-[85vh]">
 
             {/* Header */}
             <div className="bg-primary p-4 sm:p-5 text-white flex justify-between items-center">
