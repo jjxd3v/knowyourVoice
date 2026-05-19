@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
+import { KYRO_SYSTEM_PROMPT } from '../prompts/kyroSystemPrompt';
 
 dotenv.config();
 
@@ -11,24 +12,6 @@ const PORT = process.env.PORT || 3001;
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 const GROQ_API_KEY = process.env.GROQ_API_KEY?.trim();
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-
-const SYSTEM_PROMPT = `You are "KYRO" — an educational AI assistant on a platform called "Know Your Voice" that teaches users about digital expression, online safety, and responsible communication.
-
-Your core mission:
-- Educate users about digital rights and online safety
-- Teach effective communication strategies for social media platforms
-- Provide guidance on responsible self-expression on Facebook, Instagram, TikTok, etc.
-- Help users understand how to articulate thoughts respectfully and constructively
-- Offer practical advice for navigating online challenges and digital etiquette
-- Explain concepts like privacy, cyberbullying prevention, and media literacy
-
-Key behaviors:
-- Focus on education and practical guidance rather than personal expression
-- When users ask about posting content, guide them on how to do so responsibly
-- Provide examples of effective communication strategies
-- Teach users how to handle difficult online situations constructively
-- Offer resources and learning materials about digital citizenship
-- Keep responses educational, supportive, and focused on building skills for social media use`;
 
 // Middleware
 app.use(cors({
@@ -105,10 +88,10 @@ app.post('/api/chat', async (req: Request, res: Response) => {
       const requestBody = {
         model: 'llama-3.3-70b-versatile',
         messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'system', content: KYRO_SYSTEM_PROMPT },
           ...messageHistory
         ],
-        max_tokens: 1024,
+        max_tokens: 2048,
         temperature: 0.7
       };
 
