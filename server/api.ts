@@ -2,7 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { PrismaClient } from '@prisma/client';
-import { KYRO_SYSTEM_PROMPT } from '../prompts/kyroSystemPrompt';
+import { KYRO_SYSTEM_PROMPT } from '../api/kyroSystemPrompt';
 
 dotenv.config();
 

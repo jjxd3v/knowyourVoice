@@ -92,13 +92,19 @@ export async function sendMessage(
   });
 
   if (!response.ok) {
+    const responseText = await response.text();
     let errorMessage = 'Failed to send message';
     try {
-      const error = await response.json();
-      errorMessage = error.error || error.details || `Server error: ${response.status}`;
+      const error = JSON.parse(responseText);
+      errorMessage =
+        error.error && error.details
+          ? `${error.error}: ${error.details}`
+          : error.error || error.details || `Server error: ${response.status}`;
     } catch {
-      // If can't parse JSON, use status text
-      errorMessage = `Server error: ${response.status} - ${response.statusText}`;
+      const snippet = responseText.trim().slice(0, 200);
+      errorMessage = snippet
+        ? `Server error (${response.status}): ${snippet}`
+        : `Server error: ${response.status} - ${response.statusText || 'Unknown error'}`;
     }
     throw new Error(errorMessage);
   }
